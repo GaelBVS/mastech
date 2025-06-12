@@ -1,8 +1,6 @@
--- Création de la base
 CREATE DATABASE IF NOT EXISTS moncrm;
 USE moncrm;
 
--- Table clients
 CREATE TABLE clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100),
@@ -13,7 +11,6 @@ CREATE TABLE clients (
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table projets
 CREATE TABLE projets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_client INT,
@@ -25,7 +22,6 @@ CREATE TABLE projets (
     FOREIGN KEY (id_client) REFERENCES clients(id)
 );
 
--- Table devis
 CREATE TABLE devis (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_client INT,
@@ -36,7 +32,6 @@ CREATE TABLE devis (
     FOREIGN KEY (id_client) REFERENCES clients(id)
 );
 
--- Table factures
 CREATE TABLE factures (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_client INT,
@@ -46,7 +41,6 @@ CREATE TABLE factures (
     FOREIGN KEY (id_client) REFERENCES clients(id)
 );
 
--- Table tâches
 CREATE TABLE taches (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_projet INT,
@@ -56,3 +50,25 @@ CREATE TABLE taches (
     faite BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (id_projet) REFERENCES projets(id)
 );
+
+-- Données clients
+INSERT INTO clients (nom, email, telephone, adresse, notes) VALUES
+('Jean Dupont', 'jean@exemple.com', '0600000001', '12 rue de Paris', 'Client important'),
+('Sophie Martin', 'sophie@exemple.com', '0600000002', '34 avenue Victor Hugo', 'Répond vite');
+
+-- Données projets
+INSERT INTO projets (id_client, nom, description, date_debut, statut) VALUES
+(1, 'Site Web Vitrine', 'Création site vitrine', '2024-04-01', 'En cours'),
+(2, 'Refonte ERP', 'Migration Dolibarr', '2024-05-15', 'En attente');
+
+-- Devis
+INSERT INTO devis (id_client, objet, montant, statut, date_emission) VALUES
+(1, 'Développement module CRM', 4500.00, 'En attente', '2024-05-01');
+
+-- Factures
+INSERT INTO factures (id_client, montant, date_facture, statut) VALUES
+(2, 1250.00, '2024-05-15', 'Impayée');
+
+-- Tâches
+INSERT INTO taches (id_projet, titre, description, date_echeance) VALUES
+(1, 'Maquette accueil', 'Créer design de la homepage', '2024-06-30');
