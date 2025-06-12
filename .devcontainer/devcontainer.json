@@ -1,0 +1,7 @@
+{
+  "name": "Mastech - PHP MySQL",
+  "dockerComposeFile": "docker-compose.yml",
+  "workspaceFolder": "/workspaces/mastech",
+  "forwardPorts": [80, 3306],
+  "postCreateCommand": "echo 'Base moncrm initialisée via init.sql'"
+}
